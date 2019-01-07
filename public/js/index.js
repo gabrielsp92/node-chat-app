@@ -13,3 +13,10 @@ socket.on('newMessage', function(data) {
     console.log('Got New Message! ',data);
 });
 
+socket.on('newMessage',function(data) {
+    console.log(data);
+});
+
+socket.on('welcomeToChat',function(data) {
+    console.log(data);
+})
