@@ -13,14 +13,26 @@ const io = socketIO(server);
 
 app.use(express.static(publicPath));
 
-io.on('connection', (socket) =>{
+io.on('connection', function (socket) {
     console.log('new user connected');
-    socket.on('disconnect',() => {
+
+    socket.emit('newMessage',{
+        from: 'Gables',
+        text: 'Hey what is going on!',
+        createdAt: Date.now()
+    });
+
+    socket.on('createMessage', (data) => {
+        data.createdAt = Date.now();
+        console.log(data);
+    })
+
+    socket.on('disconnect',function() {
         console.log('Client disconnected from the server')
     })
 });
 
-
 server.listen(port,()=>{
     console.log(`server is up on port ${port}`);
 })
+
