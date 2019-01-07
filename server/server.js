@@ -16,14 +16,16 @@ app.use(express.static(publicPath));
 io.on('connection', function (socket) {
     console.log('new user connected');
 
-    socket.emit('newMessage',{
-        from: 'Gables',
-        text: 'Hey what is going on!',
-        createdAt: Date.now()
-    });
+    //socket.emit emit events to current connection
 
     socket.on('createMessage', (data) => {
         data.createdAt = Date.now();
+        //io.emit broadcasts events to all connections
+        io.emit('newMessage',{
+            from: data.from,
+            text: data.text,
+            createdAt: new Date().getTime()
+        })
         console.log(data);
     })
 
