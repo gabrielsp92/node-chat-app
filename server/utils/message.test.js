@@ -16,8 +16,6 @@ describe('generateMessage',() => {
     });
 });
 
-//-21.7785893, -43.349696
-
 describe('generateLocationMessage',() => {
     it('should generate corret location object', () => {
         const from = 'User';
@@ -28,6 +26,5 @@ describe('generateLocationMessage',() => {
         let msg = generateLocationMessage(from,latitude,longitude);
 
         expect(msg.url).toBe(url)
-
     })
 })
