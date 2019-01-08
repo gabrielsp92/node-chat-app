@@ -29,13 +29,15 @@ io.on('connection', function (socket) {
     ));
 
 
-    socket.on('createMessage', (data) => {
+    socket.on('createMessage', (data, callback) => {
         //socket.emit emit events to current connected client
         //io.emit broadcasts events to all connected clients
         //socket.broadcast.emit to every connection but the emitter one
         io.emit('newMessage',generateMessage(
             data.from, data.text
         ));
+        //aknowlegments
+        callback('this is from the server');
     });
 
     socket.on('disconnect',function() {

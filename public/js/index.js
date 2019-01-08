@@ -9,14 +9,27 @@ socket.on('disconnect', function(){
     console.log('Disconnected from server');
 });
 
-socket.on('newMessage', function(data) {
-    console.log('Got New Message! ',data);
-});
+socket.on('newMessage', function(message) {
+    console.log('Got New Message! ',message);
 
-socket.on('newMessage',function(data) {
-    console.log(data);
+    let li = jQuery('<li></li>');
+    li.text(`${message.from}: ${message.text}`);
+    jQuery('#messages').append(li);
+   
 });
 
 socket.on('welcomeToChat',function(data) {
     console.log(data);
 })
+
+jQuery('#message-form').on('submit', function (e) {
+    e.preventDefault();
+
+
+    socket.emit('createMessage',{
+        from: 'User',
+        text: $('#message').val()
+    }, function(){
+
+    })
+});
