@@ -19,16 +19,43 @@
             
             <div class="chat__footer">
             <form id="message-form">
-                <input id="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
+                <input name="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
                 <button>Send</button>
             </form>
             <button id="send-location">Send location</button>            
             </div>
     </div>
 
+    <script id="message-template" type="text/template">
+        <li class='message'>
+            <div class="message__title">
+                <h4>{{from}}</h4>
+                <span>{{createdAt}}</span>
+            </div>
+            <div class="message__body">
+                <p>{{text}}</p>
+            </div>
+        </li>
+    </script>
+
+    <script id="location-message-template" type="text/template">
+        <li class='message'>
+            <div class="message__title">
+                <h4>{{from}}</h4>
+                <span>{{createdAt}}</span>
+            </div>
+            <div class="message__body">
+                <p>
+                    <a href="{{url}}" id="link" target="_blank">My current location</a>
+                </p>
+            </div>
+        </li>
+    </script>
+
     <!--Adding socket library-->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery.js"></script>
+    <script src="/js/libs/mustache.js"></script>
     <script src="/js/index.js"></script>
 
 

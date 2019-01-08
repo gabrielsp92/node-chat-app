@@ -10,22 +10,29 @@ socket.on('disconnect', function(){
 });
 
 socket.on('newMessage', function(message) {
-    console.log('Got New Message! ',message);
+    const template = $('#message-template').html();
+    const html = Mustache.render(template,{
+        text: message.text,
+        from: message.from,
+        createdAt: message.createdAt
+    });
 
-    const li = jQuery('<li></li>');
-    li.text(`${message.from}: ${message.createdAt} : ${message.text}`);
-    jQuery('#messages').append(li);
+    $('#messages').append(html);
    
 });
 
 
 socket.on('newLocationMessage',function(message){
-    const li = $('<li></li<');
-    const a = $('<a target="_blank"> My current location </a>');
-    li.text(`${message.from}: ${message.createdAt}`);
-    a.attr('href',message.url);
-    li.append(a);
-    jQuery('#messages').append(li);
+    const template = $('#location-message-template').html();
+    const html = Mustache.render(template,{
+        url: message.url,
+        from: message.from,
+        createdAt: message.createdAt
+    });
+    $('#link').attr("href",message.url);
+
+    $('#messages').append(html);
+
 
 });
 
@@ -33,11 +40,11 @@ jQuery('#message-form').on('submit', function (e) {
     e.preventDefault();
 
     //select input from index.html
-    let messageTextBox = $('#message').val()
+    let messageTextBox = jQuery('input[name=message]').eq(0);
 
     socket.emit('createMessage',{
         from: 'User',
-        text: messageTextBox
+        text: messageTextBox.val()
     }, function(){
         messageTextBox.val('');
     })

@@ -33,6 +33,7 @@ io.on('connection', function (socket) {
         //socket.emit emit events to current connected client
         //io.emit broadcasts events to all connected clients
         //socket.broadcast.emit to every connection but the emitter one
+        console.log(data);
         io.emit('newMessage',generateMessage(
             data.from, data.text
         ));
