@@ -1,4 +1,4 @@
-let socket = io(); //initialize the request and keep the connection opened
+const socket = io(); //initialize the request and keep the connection opened
 
 socket.on('connect',function () {
     console.log("Connected to server");
@@ -13,7 +13,7 @@ socket.on('newMessage', function(message) {
     console.log('Got New Message! ',message);
 
     const li = jQuery('<li></li>');
-    li.text(`${message.from}: ${message.text}`);
+    li.text(`${message.from}: ${message.createdAt} : ${message.text}`);
     jQuery('#messages').append(li);
    
 });
@@ -22,7 +22,7 @@ socket.on('newMessage', function(message) {
 socket.on('newLocationMessage',function(message){
     const li = $('<li></li<');
     const a = $('<a target="_blank"> My current location </a>');
-    li.text(`${message.from}: `);
+    li.text(`${message.from}: ${message.createdAt}`);
     a.attr('href',message.url);
     li.append(a);
     jQuery('#messages').append(li);
